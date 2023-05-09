@@ -9,6 +9,8 @@
     <ItemGroup>
       <Folder Include="Core\Node\" />
       <Folder Include="Core\SearchingAlgorithms\" />
+      <Folder Include="SearchingAlgorithms\Backtrack\" />
+      <Folder Include="SearchingAlgorithms\RandomSolution\" />
     </ItemGroup>
 
 </Project>
