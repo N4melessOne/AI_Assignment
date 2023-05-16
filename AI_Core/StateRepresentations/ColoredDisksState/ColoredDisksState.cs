@@ -86,8 +86,8 @@ public class ColoredDisksState : AbstractState, IOperatorHandler<Directions, int
     public override object Clone()
     {
         ColoredDisksState clone = new ColoredDisksState();
-        clone.disks = Disks;
-        clone.goalDisks = GoalDisks;
+        clone.disks = this.disks; //should be the property, but it needs sooooo much time for cloning every time...
+        clone.goalDisks = this.goalDisks; //here as well, if the property method is used, you can never get a solution, or finish search
         clone.size = this.size;
         return clone;
     }

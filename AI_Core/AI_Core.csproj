@@ -7,9 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Core\SearchingAlgorithms\" />
-      <Folder Include="SearchingAlgorithms\Backtrack\" />
-      <Folder Include="SearchingAlgorithms\RandomSolution\" />
+      <Folder Include="Core\SearchingAlgorithms\BreadthFirst\" />
+      <Folder Include="Core\SearchingAlgorithms\DepthFirst\" />
     </ItemGroup>
 
 </Project>
