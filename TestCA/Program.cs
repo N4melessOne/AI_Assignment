@@ -1,10 +1,10 @@
 ﻿using AI_Core.StateRepresentations.ColoredDisksState;
 
+#region Solution with random steps
 Random rnd = new Random();
 ColoredDisksState state = new ColoredDisksState(4);
 Console.WriteLine("Starting state:");
 PrintState(state);
-Console.ReadLine();
 do
 {
     int index = rnd.Next(state.Size);
@@ -15,6 +15,7 @@ do
     PrintState(state);
     //Thread.Sleep(1000);
 } while (!state.IsGoalState());
+#endregion
 
 static void PrintState(ColoredDisksState state)
 {

@@ -91,7 +91,6 @@ public class ColoredDisksState : AbstractState, IOperatorHandler<Directions, int
         clone.size = this.size;
         return clone;
     }
-
     public override bool Equals(object? obj)
     {
         if (obj is null)
@@ -118,7 +117,6 @@ public class ColoredDisksState : AbstractState, IOperatorHandler<Directions, int
     {
         return true; //Don't know any kind of state that would not be true if the operators are handled correctly.
     }
-
     public override bool IsGoalState()
     {
         for (int i = 0; i < this.disks.GetLength(0); i++)
