@@ -52,6 +52,10 @@ public class ColoredDisksState : AbstractState, IOperatorHandler<Directions, int
             return temp;
         }
     }
+    public int Size
+    {
+        get => this.size;
+    }
 
     private void InitializeStart()
     {
@@ -117,9 +121,9 @@ public class ColoredDisksState : AbstractState, IOperatorHandler<Directions, int
 
     public override bool IsGoalState()
     {
-        for (int i = 0; i < this.disks.Length; i++)
+        for (int i = 0; i < this.disks.GetLength(0); i++)
         {
-            for (int j = 0; j < this.disks.Length; j++)
+            for (int j = 0; j < this.disks.GetLength(1); j++)
             {
                 if (this.disks[i, j] != this.goalDisks[i, j])
                     return false;
