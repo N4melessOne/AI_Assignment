@@ -3,13 +3,16 @@ using AI_Core.Core.SearchingAlgorithms.Backtrack;
 using AI_Core.StateRepresentations.ColoredDisksState;
 
 #region Solution with random steps
-/*
+
 Random rnd = new Random();
 ColoredDisksState state = new ColoredDisksState(4);
 Console.WriteLine("Starting state:");
 PrintState(state);
+int i = 0;
 do
 {
+    i++;
+    Console.WriteLine($"{i}. iteration");
     int index = rnd.Next(state.Size);
     Directions rowOrColumn = (Directions)rnd.Next(2);
     state.ApplyOperator(rowOrColumn, index);
@@ -17,9 +20,10 @@ do
     Console.WriteLine("Current state:");
     PrintState(state);
     //Thread.Sleep(1000);
-} while (!state.IsGoalState());*/
+} while (!state.IsGoalState());
 #endregion
 
+/*
 BacktrackColoredDisks backtrackColoredDisks = new BacktrackColoredDisks(1000, true, 4);
 Console.WriteLine("Starting search...");
 ColoredDisksNode terminalNode = backtrackColoredDisks.Search(); //null-t ad vissza, gyakorlatilag nincs megoldása.
@@ -31,7 +35,7 @@ foreach (var node in backtrackColoredDisks.GetSolution(terminalNode))
     Console.WriteLine($"{i}. iteration");
     PrintState(node.State);
     Console.WriteLine("\n\n");
-}
+}*/
 
 static void PrintState(ColoredDisksState state)
 {

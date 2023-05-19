@@ -1,42 +1,43 @@
 ﻿using AI_Core.Core.Node;
-using AI_Core.StateRepresentations.ColoredDisksState;
+using AI_Core.StateRepresentations.HungryHorsemanNState;
 
 namespace AI_Core.Core.SearchingAlgorithms.Backtrack;
 
-public class BacktrackColoredDisks : GraphSearchColoredDisks
+public class BacktrackHungryHorsemanN : GraphSearchHungryHorsemanN
 {
     private int maxDepth;
     private bool isMemorable;
 
-    public BacktrackColoredDisks(int maxDepth, bool isMemorable, int size = 4) : base(size)
+    public BacktrackHungryHorsemanN(int maxDepth, bool isMemorable, int size = 3) : base(size)
     {
         this.maxDepth = maxDepth;
         this.isMemorable = isMemorable;
     }
 
-    public BacktrackColoredDisks() : this(0, false)
+    public BacktrackHungryHorsemanN() : this(0, false)
     {
     }
 
-    public BacktrackColoredDisks(int maxDepth) : this(maxDepth, false)
+    public BacktrackHungryHorsemanN(int maxDepth) : this(maxDepth, false)
     {
     }
 
-    public BacktrackColoredDisks(bool isMemorable) : this(0, isMemorable)
+    public BacktrackHungryHorsemanN(bool isMemorable) : this(0, isMemorable)
     {
     }
 
-    public override ColoredDisksNode Search() =>
+    public override HungryHorsemanNNode Search() =>
         Search(StartNode);
 
-    private ColoredDisksNode Search(ColoredDisksNode actualNode)
+    private HungryHorsemanNNode Search(HungryHorsemanNNode actualNode)
     {
         int actualDepth = actualNode.Depth;
 
+        //check if we reached the maximum depth
         if (maxDepth != 0 && actualDepth >= maxDepth)
             return null!;
 
-        ColoredDisksNode actualParent = null!;
+        HungryHorsemanNNode actualParent = null!;
         if (isMemorable)
             actualParent = actualNode.Parent;
 
@@ -49,14 +50,14 @@ public class BacktrackColoredDisks : GraphSearchColoredDisks
 
         if (actualNode.IsTerminalNode)
             return actualNode;
-        foreach (Directions dir in Enum.GetValues(typeof(Directions)))
+        for (int i = -2; i < 3; i++)
         {
-            for (int i = 0; i < actualNode.State.Size; i++)
+            for (int j = -2; j < 3; j++)
             {
-                ColoredDisksNode newNode = new ColoredDisksNode(actualNode);
-                if (newNode.State.ApplyOperator(dir, i))
+                HungryHorsemanNNode newNode = new HungryHorsemanNNode(actualNode);
+                if (newNode.State.ApplyOperator(i, j))
                 {
-                    ColoredDisksNode terminalNode = Search(newNode);
+                    HungryHorsemanNNode terminalNode = Search(newNode);
                     if (terminalNode != null)
                         return terminalNode;
                 }
