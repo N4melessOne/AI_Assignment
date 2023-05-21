@@ -6,6 +6,7 @@ public class A_HungryHorsemanN : GraphSearchHungryHorsemanN
 {
     public override HungryHorsemanNNode Search()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Not implemented...");
+        return null!;
     }
 }
