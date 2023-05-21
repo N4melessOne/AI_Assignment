@@ -28,11 +28,10 @@ public class TrialAndErrorColoredDisks : GraphSearchColoredDisks
         ColoredDisksState temp = (currentState.Clone() as ColoredDisksState)!;
         int index = rnd.Next(0, currentState.Size);
         Directions rowOrColumn = (Directions)rnd.Next(2);
-        if (temp.ApplyOperator(rowOrColumn, index))
+        if (temp.IsOperator(rowOrColumn, index) && temp.ApplyOperator(rowOrColumn, index))
         {
             return currentState.ApplyOperator(rowOrColumn, index);
         }
-
         return false;
     }
 

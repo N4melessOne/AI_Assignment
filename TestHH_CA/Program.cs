@@ -7,7 +7,7 @@ using AI_Core.StateRepresentations.HungryHorsemanNState;
 
 Console.CursorVisible = false;
 
-#region Solution with random steps
+#region Trial and Error
 /*
 Random rnd = new Random();
 TrialAndErrorHungryHorsemanN trialAndError = new TrialAndErrorHungryHorsemanN();
