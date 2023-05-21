@@ -8,15 +8,15 @@ public class DepthFirstColoredDisks : GraphSearchColoredDisks
     private List<ColoredDisksNode> closedNodes;
     private bool circleDetection;
 
-    public DepthFirstColoredDisks(bool circleDetection)
+    public DepthFirstColoredDisks(bool circleDetection, int size = 4)
     {
         openNodes = new Stack<ColoredDisksNode>();
-        openNodes.Push(new ColoredDisksNode());
+        openNodes.Push(new ColoredDisksNode(size));
         closedNodes = new List<ColoredDisksNode>();
         this.circleDetection = circleDetection;
     }
 
-    public DepthFirstColoredDisks() : this(true)
+    public DepthFirstColoredDisks(int size = 4) : this(true, size)
     {
     }
 

@@ -9,7 +9,7 @@ public class BreadthFirstColoredDisks : GraphSearchColoredDisks
     private List<ColoredDisksNode> closedNodes;
     private bool circleDetection;
 
-    public BreadthFirstColoredDisks(bool circleDetection)
+    public BreadthFirstColoredDisks(bool circleDetection, int size = 4)
     {
         openNodes = new Queue<ColoredDisksNode>();
         openNodes.Enqueue(new ColoredDisksNode()); //starting node
@@ -17,7 +17,7 @@ public class BreadthFirstColoredDisks : GraphSearchColoredDisks
         this.circleDetection = circleDetection;
     }
 
-    public BreadthFirstColoredDisks() : this(true)
+    public BreadthFirstColoredDisks(int size = 4) : this(true, size)
     {
     }
 

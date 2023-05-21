@@ -2,11 +2,15 @@
 using AI_Core.Core.SearchingAlgorithms.Backtrack;
 using AI_Core.Core.SearchingAlgorithms.BreadthFirst;
 using AI_Core.Core.SearchingAlgorithms.DepthFirst;
+using AI_Core.Core.SearchingAlgorithms.TrialAndError;
 using AI_Core.StateRepresentations.ColoredDisksState;
+
+Console.CursorVisible = false;
 
 #region Solution with random steps
 /*
 Random rnd = new Random();
+TrialAndErrorColoredDisks trialAndError = new TrialAndErrorColoredDisks();
 ColoredDisksState state = new ColoredDisksState(6);
 Console.WriteLine("Starting state:");
 PrintState(state);
@@ -15,9 +19,7 @@ do
 {
     i++;
     Console.WriteLine($"{i}. iteration");
-    int index = rnd.Next(state.Size);
-    Directions rowOrColumn = (Directions)rnd.Next(2);
-    state.ApplyOperator(rowOrColumn, index);
+    trialAndError.RandomStep(state);
 
     Console.WriteLine("Current state:");
     PrintState(state);
@@ -61,7 +63,7 @@ foreach (var node in depthFirstColoredDisks.GetSolution(terminalNode))
 #endregion
 
 #region Breadth-First solution
-
+/*
 BreadthFirstColoredDisks breadthFirstColoredDisks = new BreadthFirstColoredDisks(true);
 Console.WriteLine("Starting search...");
 ColoredDisksNode terminalNode = breadthFirstColoredDisks.Search(); //null-t ad vissza, gyakorlatilag nincs megoldása.
@@ -74,7 +76,7 @@ foreach (var node in breadthFirstColoredDisks.GetSolution(terminalNode))
     PrintState(node.State);
     Console.WriteLine("\n\n");
 }
-
+*/
 #endregion
 
 static void PrintState(ColoredDisksState state)

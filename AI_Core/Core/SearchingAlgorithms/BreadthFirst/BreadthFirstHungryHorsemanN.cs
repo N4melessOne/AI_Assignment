@@ -9,15 +9,15 @@ public class BreadthFirstHungryHorsemanN : GraphSearchHungryHorsemanN
     private List<HungryHorsemanNNode> closedNodes;
     private bool circleDetection;
 
-    public BreadthFirstHungryHorsemanN(bool circleDetection)
+    public BreadthFirstHungryHorsemanN(bool circleDetection, int size = 3)
     {
         openNodes = new Queue<HungryHorsemanNNode>();
-        openNodes.Enqueue(new HungryHorsemanNNode()); //starting node
+        openNodes.Enqueue(new HungryHorsemanNNode(size)); //starting node
         closedNodes = new List<HungryHorsemanNNode>();
         this.circleDetection = circleDetection;
     }
 
-    public BreadthFirstHungryHorsemanN() : this(true)
+    public BreadthFirstHungryHorsemanN(int size = 3) : this(true, size)
     {
     }
 

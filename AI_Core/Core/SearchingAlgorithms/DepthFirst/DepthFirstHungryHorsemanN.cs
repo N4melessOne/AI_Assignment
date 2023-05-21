@@ -8,15 +8,15 @@ public class DepthFirstHungryHorsemanN : GraphSearchHungryHorsemanN
     private List<HungryHorsemanNNode> closedNodes;
     private bool circleDetection;
 
-    public DepthFirstHungryHorsemanN(bool circleDetection)
+    public DepthFirstHungryHorsemanN(bool circleDetection, int size = 3)
     {
         openNodes = new Stack<HungryHorsemanNNode>();
-        openNodes.Push(new HungryHorsemanNNode());
+        openNodes.Push(new HungryHorsemanNNode(size));
         closedNodes = new List<HungryHorsemanNNode>();
         this.circleDetection = circleDetection;
     }
 
-    public DepthFirstHungryHorsemanN() : this(true)
+    public DepthFirstHungryHorsemanN(int size = 3) : this(true, size)
     {
     }
 
