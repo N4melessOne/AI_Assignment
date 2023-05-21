@@ -49,6 +49,7 @@ public class BacktrackColoredDisks : GraphSearchColoredDisks
 
         if (actualNode.IsTerminalNode)
             return actualNode;
+        
         foreach (Directions dir in Enum.GetValues(typeof(Directions)))
         {
             for (int i = 0; i < actualNode.State.Size; i++)

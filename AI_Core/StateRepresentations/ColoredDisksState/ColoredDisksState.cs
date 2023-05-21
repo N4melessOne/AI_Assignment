@@ -13,6 +13,7 @@ public class ColoredDisksState : AbstractState, IOperatorHandler<Directions, int
     {
         //for cloning
     }
+
     public ColoredDisksState(int size = 4)
     {
         this.size = size;
@@ -36,6 +37,7 @@ public class ColoredDisksState : AbstractState, IOperatorHandler<Directions, int
             return temp;
         }
     }
+
     public bool[,] GoalDisks
     {
         get
@@ -52,6 +54,7 @@ public class ColoredDisksState : AbstractState, IOperatorHandler<Directions, int
             return temp;
         }
     }
+
     public int Size
     {
         get => this.size;
@@ -68,17 +71,22 @@ public class ColoredDisksState : AbstractState, IOperatorHandler<Directions, int
             }
         }
     }
+
     private void InitializeGoal()
     {
+        //Have to make some changes cause the first one is unsolvable. 
+        //Now the solution will be the primary and secondary diagonals of the N*N squares.
         this.goalDisks = new bool[this.size, this.size];
         for (int i = 0; i < this.size; i++)
         {
             for (int j = 0; j < this.size; j++)
             {
-                if (i == 0 || i == this.size - 1 || j == 0 || j == this.size - 1)
-                    goalDisks[i, j] = false;
-                else
+                if (i == j || i + j == this.size - 1)
                     goalDisks[i, j] = true;
+                else
+                    goalDisks[i, j] = false;
+                //if (i == 0 || i == this.size - 1 || j == 0 || j == this.size - 1)
+                //goalDisks[i, j] = false;
             }
         }
     }
@@ -87,10 +95,12 @@ public class ColoredDisksState : AbstractState, IOperatorHandler<Directions, int
     {
         ColoredDisksState clone = new ColoredDisksState();
         clone.disks = this.disks; //should be the property, but it needs sooooo much time for cloning every time...
-        clone.goalDisks = this.goalDisks; //here as well, if the property method is used, you can never get a solution, or finish search
+        clone.goalDisks =
+            this.goalDisks; //here as well, if the property method is used, you can never get a solution, or finish search
         clone.size = this.size;
         return clone;
     }
+
     public override bool Equals(object? obj)
     {
         if (obj is null)
@@ -117,6 +127,7 @@ public class ColoredDisksState : AbstractState, IOperatorHandler<Directions, int
     {
         return true; //Don't know any kind of state that would not be true if the operators are handled correctly.
     }
+
     public override bool IsGoalState()
     {
         for (int i = 0; i < this.disks.GetLength(0); i++)

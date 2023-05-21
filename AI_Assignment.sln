@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCA", "TestCA\TestCA.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HungryHorsemanN_WPF", "HungryHorsemanN_WPF\HungryHorsemanN_WPF.csproj", "{0EE3F910-69A5-4A41-B19B-B21848C46FE3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestHH_CA", "TestHH_CA\TestHH_CA.csproj", "{C340CE80-DA90-4B31-A51A-5F02A144FA75}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{0EE3F910-69A5-4A41-B19B-B21848C46FE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0EE3F910-69A5-4A41-B19B-B21848C46FE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0EE3F910-69A5-4A41-B19B-B21848C46FE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C340CE80-DA90-4B31-A51A-5F02A144FA75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C340CE80-DA90-4B31-A51A-5F02A144FA75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C340CE80-DA90-4B31-A51A-5F02A144FA75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C340CE80-DA90-4B31-A51A-5F02A144FA75}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
