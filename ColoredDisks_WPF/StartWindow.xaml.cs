@@ -25,9 +25,9 @@ public partial class StartWindow : Window
             return;
         }
 
-        if (size <= 0)
+        if (size <= 2)
         {
-            MessageBox.Show("You have not entered a valid number!");
+            MessageBox.Show("Please enter a number greater than 2!");
             ResetTbSize();
             return;
         }
