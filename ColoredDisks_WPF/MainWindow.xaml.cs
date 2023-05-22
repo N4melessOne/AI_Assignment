@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,21 +18,22 @@ using AI_Core.Core.SearchingAlgorithms.Backtrack;
 using AI_Core.Core.SearchingAlgorithms.BreadthFirst;
 using AI_Core.Core.SearchingAlgorithms.DepthFirst;
 using AI_Core.Core.SearchingAlgorithms.TrialAndError;
-using AI_Core.StateRepresentations.HungryHorsemanNState;
+using AI_Core.StateRepresentations.ColoredDisksState;
 
-namespace HungryHorsemanN_WPF
+namespace ColoredDisks_WPF
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        private HungryHorsemanNNode terminalNode;
-        private List<HungryHorsemanNNode> solution; //Should be a List to iterate through easily
+        
+        private ColoredDisksNode terminalNode;
+        private List<ColoredDisksNode> solution; //Should be a List to iterate through easily
         private Image _horseman;
         private int _currentStep;
         private readonly int _size;
-        private GraphSearchHungryHorsemanN _searchingAlgorithm;
+        private GraphSearchColoredDisks _searchingAlgorithm;
 
         public MainWindow(int size = 3)
         {
@@ -50,29 +50,31 @@ namespace HungryHorsemanN_WPF
         
         private void InitializeResources()
         {
-            lblTitle.Content = $"Hungry Horseman on {this._size}x{this._size} chessboard";
+            lblTitle.Content = $"{this._size}x{this._size} Colored Disk problem";
             GenerateStateGrid();
             PaintStateGrid();
-            InitializeHorsemanImage();
-        }
-
-        private void InitializeHorsemanImage()
-        {
-            this._horseman = (FindResource("horsemanImage") as Image)!;
-            this._horseman.Height = gridState.Height / this._size;
-            this._horseman.Width = gridState.Width / this._size;
         }
         
-        private void PrintState(HungryHorsemanN current)
+        private void PrintState(ColoredDisksState current)
         {
-            gridState.Children.Remove(this._horseman);
-            int x = current.X;
-            int y = current.Y;
-            gridState.Children.Add(this._horseman);
-            Grid.SetRow(this._horseman, x);
-            Grid.SetColumn(this._horseman, y);
-            this.statusScrollViewer.Content += "\n" + current;
-            this.statusScrollViewer.ScrollToBottom();
+            var brushRed = new SolidColorBrush(Colors.Red);
+            var brushBlue = new SolidColorBrush(Colors.Blue);
+            
+            for (int i = 0; i < current.Disks.GetLength(0); i++)
+            {
+                for (int j = 0; j < current.Disks.GetLength(1); j++)
+                {
+                    Ellipse cell = new Ellipse();
+                    cell.Stretch = Stretch.Uniform;
+                    Grid.SetRow(cell, i);
+                    Grid.SetColumn(cell, j);
+                    if (current.Disks[i, j])
+                        cell.Fill = brushBlue;
+                    else
+                        cell.Fill = brushRed;
+                    gridState.Children.Add(cell);
+                }
+            }
         }
 
         private void GenerateStateGrid()
@@ -88,20 +90,16 @@ namespace HungryHorsemanN_WPF
 
         private void PaintStateGrid()
         {
-            var brushBlack = new SolidColorBrush(Colors.Black);
-            var brushWhite = new SolidColorBrush(Colors.White);
+            var brushRed = new SolidColorBrush(Colors.Red);
             for (int i = 0; i < gridState.RowDefinitions.Count; i++)
             {
                 for (int j = 0; j < gridState.ColumnDefinitions.Count; j++)
                 {
-                    Rectangle cell = new Rectangle();
+                    Ellipse cell = new Ellipse();
+                    cell.Stretch = Stretch.Uniform;
                     Grid.SetRow(cell, i);
                     Grid.SetColumn(cell, j);
-
-                    if ((i + j) % 2 == 0)
-                        cell.Fill = brushWhite;
-                    else
-                        cell.Fill = brushBlack;
+                    cell.Fill = brushRed;
                     gridState.Children.Add(cell);
                 }
             }
@@ -160,25 +158,25 @@ namespace HungryHorsemanN_WPF
 
         private void GetTrialAndErrorSolution()
         {
-            this._searchingAlgorithm = new TrialAndErrorHungryHorsemanN(this._size);
+            this._searchingAlgorithm = new TrialAndErrorColoredDisks(this._size);
             this.ResetSolution();
         }
 
         private void GetBacktrackSolution()
         {
-            this._searchingAlgorithm = new BacktrackHungryHorsemanN(this._size * 4, true, this._size);
+            this._searchingAlgorithm = new BacktrackColoredDisks(this._size * 4, true, this._size);
             this.ResetSolution();
         }
 
         private void GetDepthFirstSolution()
         {
-            this._searchingAlgorithm = new DepthFirstHungryHorsemanN(true, this._size);
+            this._searchingAlgorithm = new DepthFirstColoredDisks(true, this._size);
             this.ResetSolution();
         }
 
         private void GetBreadthFirstSolution()
         {
-            this._searchingAlgorithm = new BreadthFirstHungryHorsemanN(true, this._size);
+            this._searchingAlgorithm = new BreadthFirstColoredDisks(true, this._size);
             this.ResetSolution();
         }
     }
