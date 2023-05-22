@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,7 +14,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using AI_Core.Core.Node;
+using AI_Core.Core.SearchingAlgorithms;
 using AI_Core.Core.SearchingAlgorithms.Backtrack;
+using AI_Core.Core.SearchingAlgorithms.BreadthFirst;
+using AI_Core.Core.SearchingAlgorithms.DepthFirst;
+using AI_Core.Core.SearchingAlgorithms.TrialAndError;
 using AI_Core.StateRepresentations.HungryHorsemanNState;
 
 namespace HungryHorsemanN_WPF
@@ -22,43 +27,45 @@ namespace HungryHorsemanN_WPF
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    { 
-        private BacktrackHungryHorsemanN backtrack;
+    {
         private HungryHorsemanNNode terminalNode;
         private List<HungryHorsemanNNode> solution; //Should be a List to iterate through easily
         private Image _horseman;
         private int _currentStep;
-
+        private readonly int _size;
+        private GraphSearchHungryHorsemanN _searchingAlgorithm;
 
         public MainWindow(int size = 3)
         {
             InitializeComponent();
-            InitializeResources(size);
-            InitializeFields(size);
-            PrintState(this.solution[_currentStep].State);
+            this._size = size;
+            InitializeResources();
+            InitializeFields();
+            //PrintState(this.solution[_currentStep].State);
         }
 
-        private void InitializeFields(int size)
+        private void InitializeFields()
         {
             _currentStep = 0;
-            backtrack = new BacktrackHungryHorsemanN(size * 4, true, size);
-            this.terminalNode = backtrack.Search();
-            this.solution = backtrack.GetSolution(terminalNode).ToList();
+            //trialAndError = new TrialAndErrorHungryHorsemanN(this._size);
+            //backtrack = new BacktrackHungryHorsemanN(this._size * 4, true, this._size);
+            //depthFirst = new DepthFirstHungryHorsemanN(true, this._size);
+            //breadthFirst = new BreadthFirstHungryHorsemanN(true, this._size);
         }
         
-        private void InitializeResources(int size)
+        private void InitializeResources()
         {
-            lblTitle.Content = $"Hungry Horseman on {size}x{size} chessboard";
-            GenerateStateGrid(size);
+            lblTitle.Content = $"Hungry Horseman on {this._size}x{this._size} chessboard";
+            GenerateStateGrid();
             PaintStateGrid();
-            InitializeHorsemanImage(size);
+            InitializeHorsemanImage();
         }
 
-        private void InitializeHorsemanImage(int size)
+        private void InitializeHorsemanImage()
         {
             this._horseman = (FindResource("horsemanImage") as Image)!;
-            this._horseman.Height = gridState.Height / size;
-            this._horseman.Width = gridState.Width / size;
+            this._horseman.Height = gridState.Height / this._size;
+            this._horseman.Width = gridState.Width / this._size;
         }
         
         private void PrintState(HungryHorsemanN current)
@@ -73,9 +80,9 @@ namespace HungryHorsemanN_WPF
             this.statusScrollViewer.ScrollToBottom();
         }
 
-        private void GenerateStateGrid(int size)
+        private void GenerateStateGrid()
         {
-            for (int i = 0; i < size; i++)
+            for (int i = 0; i < this._size; i++)
             {
                 RowDefinition newRow = new RowDefinition();
                 ColumnDefinition newColumn = new ColumnDefinition();
@@ -116,6 +123,9 @@ namespace HungryHorsemanN_WPF
             }
 
             PrintState(this.solution[_currentStep].State);
+
+            if (this.solution[_currentStep].State.IsGoalState())
+                this.statusScrollViewer.Content += $"\nCompleted in {this.solution.Count} steps.";
         }
 
         private void BtnBack_OnClick(object sender, RoutedEventArgs e)
@@ -135,13 +145,46 @@ namespace HungryHorsemanN_WPF
         {
             switch (selector.SelectedIndex)
             {
-                case 0: break;
-                case 1: break;
-                case 2: break;
-                case 3: break;
+                case 0: this.GetTrialAndErrorSolution(); break;
+                case 1: this.GetBacktrackSolution(); break;
+                case 2: this.GetDepthFirstSolution(); break;
+                case 3: this.GetBreadthFirstSolution(); break;
                 
                 default: MessageBox.Show("Not a valid searching algorithm!"); break;
             }
+        }
+
+        private void ResetSolution()
+        {
+            this._currentStep = 0;
+            this.terminalNode = this._searchingAlgorithm.Search();
+            this.solution = this._searchingAlgorithm.GetSolution(terminalNode).ToList();
+            this.statusScrollViewer.Content = "Steps: ";
+            PrintState(this.solution[this._currentStep].State);
+        }
+
+        private void GetTrialAndErrorSolution()
+        {
+            this._searchingAlgorithm = new TrialAndErrorHungryHorsemanN(this._size);
+            this.ResetSolution();
+        }
+
+        private void GetBacktrackSolution()
+        {
+            this._searchingAlgorithm = new BacktrackHungryHorsemanN(this._size * 4, true, this._size);
+            this.ResetSolution();
+        }
+
+        private void GetDepthFirstSolution()
+        {
+            this._searchingAlgorithm = new DepthFirstHungryHorsemanN(true, this._size);
+            this.ResetSolution();
+        }
+
+        private void GetBreadthFirstSolution()
+        {
+            this._searchingAlgorithm = new BreadthFirstHungryHorsemanN(true, this._size);
+            this.ResetSolution();
         }
     }
 }
