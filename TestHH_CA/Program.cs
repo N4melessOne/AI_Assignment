@@ -9,22 +9,17 @@ Console.CursorVisible = false;
 
 #region Trial and Error
 /*
-Random rnd = new Random();
-TrialAndErrorHungryHorsemanN trialAndError = new TrialAndErrorHungryHorsemanN();
-HungryHorsemanN state = new HungryHorsemanN(6);
-Console.WriteLine("Starting state:");
-PrintStateN(state);
+TrialAndErrorHungryHorsemanN trialAndError = new TrialAndErrorHungryHorsemanN(6);
+HungryHorsemanNNode terminalNode = trialAndError.Search();
 int i = 0;
-do
+foreach (var node in trialAndError.GetSolution(terminalNode))
 {
     i++;
     Console.WriteLine($"{i}. iteration");
-    trialAndError.RandomStep(state);
-
-    Console.WriteLine("Current state:");
-    PrintStateN(state);
-    //Thread.Sleep(1000);
-} while (!state.IsGoalState());
+    PrintStateN(node.State);
+    Console.WriteLine("\n\n");
+    //Thread.Sleep(200);
+}
 */
 #endregion
 

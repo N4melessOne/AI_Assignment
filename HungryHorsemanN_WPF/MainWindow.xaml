@@ -35,17 +35,28 @@
         <Grid Grid.Row="1" Grid.Column="1"
               x:Name="gridStatus">
             <Grid.RowDefinitions>
-                <RowDefinition Height="8*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="7*"></RowDefinition>
                 <RowDefinition Height="2*"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <ScrollViewer Grid.Row="0" FontSize="22"
+            <ComboBox
+                FontSize="40"
+                x:Name="selector"
+                SelectionChanged="Selector_OnSelectionChanged">
+                <ComboBoxItem>Trial and Error</ComboBoxItem>
+                <ComboBoxItem>Backtrack</ComboBoxItem>
+                <ComboBoxItem>Depth-First</ComboBoxItem>
+                <ComboBoxItem>Breadth-First</ComboBoxItem>
+            </ComboBox>
+            
+            <ScrollViewer Grid.Row="1" FontSize="22"
                           x:Name="statusScrollViewer"
-                          Content="Backtrack steps:"
+                          Content="Steps:"
                           Margin="20">
             </ScrollViewer>
 
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                     <ColumnDefinition Width="5*"></ColumnDefinition>
@@ -61,7 +72,7 @@
                         Click="BtnBack_OnClick">
                 </Button>
 
-                <Button Grid.Column="1"
+                <Button Grid.Column="2"
                         Margin="20"
                         x:Name="btnForward"
                         Content="&gt;&gt;"

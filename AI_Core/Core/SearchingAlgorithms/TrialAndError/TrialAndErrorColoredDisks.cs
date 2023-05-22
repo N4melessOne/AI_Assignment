@@ -7,46 +7,44 @@ namespace AI_Core.Core.SearchingAlgorithms.TrialAndError;
 public class TrialAndErrorColoredDisks : GraphSearchColoredDisks
 {
     private static Random rnd;
-    private ColoredDisksNode startNode;
-    private Stack<ColoredDisksState> solution;
-
+    private int maxDepth;
     static TrialAndErrorColoredDisks()
     {
         rnd = new Random();
     }
 
-    public TrialAndErrorColoredDisks(int size = 3)
+    public TrialAndErrorColoredDisks(int size = 4, int maxDepth = Int32.MaxValue) : base(size)
     {
-        startNode = new ColoredDisksNode(size);
+        this.maxDepth = maxDepth;
     }
 
-    public bool RandomStep(ColoredDisksState currentState)
+    public override ColoredDisksNode Search() 
+        => this.Search(StartNode);
+    
+    private ColoredDisksNode Search(ColoredDisksNode actualNode)
     {
-        if (currentState is null)
-            return false;
+        int actualDepth = actualNode.Depth;
 
-        ColoredDisksState temp = (currentState.Clone() as ColoredDisksState)!;
-        int index = rnd.Next(0, currentState.Size);
-        Directions rowOrColumn = (Directions)rnd.Next(2);
-        if (temp.IsOperator(rowOrColumn, index) && temp.ApplyOperator(rowOrColumn, index))
-        {
-            return currentState.ApplyOperator(rowOrColumn, index);
-        }
-        return false;
-    }
+        if (maxDepth != 0 && actualDepth >= maxDepth)
+            return null!;
 
-    //TODO:Fix this, to be the main method call and handle the whole process
-    public override ColoredDisksNode Search()
-    {
+        if (actualNode.IsTerminalNode)
+            return actualNode;
+
         do
         {
-            ColoredDisksNode newNode = new ColoredDisksNode(this.startNode);
-            if (RandomStep(this.startNode.State))
+            Directions rowOrColumn = (Directions)rnd.Next(0, Enum.GetNames(typeof(Directions)).Length);
+            int index = rnd.Next(0, actualNode.State.Size);
+            
+            ColoredDisksNode newNode = new ColoredDisksNode(actualNode);
+            if (newNode.State.ApplyOperator(rowOrColumn, index))
             {
-                
+                ColoredDisksNode terminalNode = Search(newNode);
+                if (terminalNode != null)
+                    return terminalNode;
             }
-        } while (!startNode.IsTerminalNode);
-
-        return this.startNode;
+        } while (!actualNode.IsTerminalNode);
+        
+        return null!;
     }
 }

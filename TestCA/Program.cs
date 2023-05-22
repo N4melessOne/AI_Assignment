@@ -8,23 +8,19 @@ using AI_Core.StateRepresentations.ColoredDisksState;
 Console.CursorVisible = false;
 
 #region Trial and Error
-/* TODO:Fix this, cause it does not make any steps for some reason.
+/*
 TrialAndErrorColoredDisks trialAndError = new TrialAndErrorColoredDisks();
-ColoredDisksState state = new ColoredDisksState(4);
-Console.WriteLine("Starting state:");
-PrintState(state);
+Console.WriteLine("Starting search...");
+ColoredDisksNode terminalNode = trialAndError.Search();
+Console.WriteLine("Search has finished.");
 int i = 0;
-do
+foreach (var node in trialAndError.GetSolution(terminalNode))
 {
     i++;
     Console.WriteLine($"{i}. iteration");
-    if (trialAndError.RandomStep(state))
-    {
-        Console.WriteLine("Current state:");
-        PrintState(state);
-    }
-    //Thread.Sleep(1000);
-} while (!state.IsGoalState());
+    PrintState(node.State);
+    Console.WriteLine("\n\n");
+}
 */
 #endregion
 
@@ -46,7 +42,7 @@ foreach (var node in backtrackColoredDisks.GetSolution(terminalNode))
 #endregion
 
 #region Depth-First
-
+/*
 DepthFirstColoredDisks depthFirstColoredDisks = new DepthFirstColoredDisks(false, 4);
 Console.WriteLine("Starting search...");
 ColoredDisksNode terminalNode = depthFirstColoredDisks.Search(); //null-t ad vissza, gyakorlatilag nincs megoldása.
@@ -59,7 +55,7 @@ foreach (var node in depthFirstColoredDisks.GetSolution(terminalNode))
     PrintState(node.State);
     Console.WriteLine("\n\n");
 }
-
+*/
 #endregion
 
 #region Breadth-First

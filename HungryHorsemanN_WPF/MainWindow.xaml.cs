@@ -130,5 +130,18 @@ namespace HungryHorsemanN_WPF
 
             PrintState(this.solution[_currentStep].State);
         }
+
+        private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            switch (selector.SelectedIndex)
+            {
+                case 0: break;
+                case 1: break;
+                case 2: break;
+                case 3: break;
+                
+                default: MessageBox.Show("Not a valid searching algorithm!"); break;
+            }
+        }
     }
 }
