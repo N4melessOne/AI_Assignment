@@ -123,6 +123,23 @@ public class ColoredDisksState : AbstractState, IOperatorHandler<Directions, int
             return false;
     }
 
+    public override string ToString()
+    {
+        int _true = 0, _false = 0;
+        for (int i = 0; i < this.disks.GetLength(0); i++)
+        {
+            for (int j = 0; j < this.disks.GetLength(1); j++)
+            {
+                if (this.disks[i, j])
+                    _true++;
+                else
+                    _false++;
+            }
+        }
+
+        return $"There are {_true} red and {_false} blue disks";
+    }
+
     public override bool IsState()
     {
         return true; //Don't know any kind of state that would not be true if the operators are handled correctly.
