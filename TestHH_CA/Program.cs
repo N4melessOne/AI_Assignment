@@ -8,7 +8,7 @@ using AI_Core.StateRepresentations.HungryHorsemanNState;
 Console.CursorVisible = false;
 
 #region Trial and Error
-/*
+
 TrialAndErrorHungryHorsemanN trialAndError = new TrialAndErrorHungryHorsemanN(6);
 HungryHorsemanNNode terminalNode = trialAndError.Search();
 int i = 0;
@@ -20,7 +20,7 @@ foreach (var node in trialAndError.GetSolution(terminalNode))
     Console.WriteLine("\n\n");
     //Thread.Sleep(200);
 }
-*/
+
 #endregion
 
 #region Backtrack

@@ -36,6 +36,7 @@ public class ColoredDisksState : AbstractState, IOperatorHandler<Directions, int
 
             return temp;
         }
+        set => this.disks = value;
     }
 
     public bool[,] GoalDisks
@@ -53,11 +54,13 @@ public class ColoredDisksState : AbstractState, IOperatorHandler<Directions, int
 
             return temp;
         }
+        set => this.goalDisks = value;
     }
 
     public int Size
     {
         get => this.size;
+        set => this.size = value;
     }
 
     private void InitializeStart()
@@ -94,10 +97,10 @@ public class ColoredDisksState : AbstractState, IOperatorHandler<Directions, int
     public override object Clone()
     {
         ColoredDisksState clone = new ColoredDisksState();
-        clone.disks = this.disks; //should be the property, but it needs sooooo much time for cloning every time...
-        clone.goalDisks =
-            this.goalDisks; //here as well, if the property method is used, you can never get a solution, or finish search
-        clone.size = this.size;
+        clone.Disks = this.Disks; //should be the property, but it needs sooooo much time for cloning every time...
+        clone.GoalDisks =
+            this.GoalDisks; //here as well, if the property method is used, you can never get a solution, or finish search
+        clone.Size = this.size;
         return clone;
     }
 
@@ -151,7 +154,7 @@ public class ColoredDisksState : AbstractState, IOperatorHandler<Directions, int
         {
             for (int j = 0; j < this.disks.GetLength(1); j++)
             {
-                if (this.disks[i, j] != this.goalDisks[i, j])
+                if (this.disks[i, j] != this.GoalDisks[i, j])
                     return false;
             }
         }

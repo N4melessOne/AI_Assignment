@@ -28,7 +28,7 @@ foreach (var node in trialAndError.GetSolution(terminalNode))
 /*
 BacktrackColoredDisks backtrackColoredDisks = new BacktrackColoredDisks(1000, true, 4);
 Console.WriteLine("Starting search...");
-ColoredDisksNode terminalNode = backtrackColoredDisks.Search(); //null-t ad vissza, gyakorlatilag nincs megoldása.
+ColoredDisksNode terminalNode = backtrackColoredDisks.Search();
 Console.WriteLine("Search has finished.");
 int i = 0;
 foreach (var node in backtrackColoredDisks.GetSolution(terminalNode))
@@ -43,7 +43,7 @@ foreach (var node in backtrackColoredDisks.GetSolution(terminalNode))
 
 #region Depth-First
 /*
-DepthFirstColoredDisks depthFirstColoredDisks = new DepthFirstColoredDisks(false, 4);
+DepthFirstColoredDisks depthFirstColoredDisks = new DepthFirstColoredDisks(true, 4);
 Console.WriteLine("Starting search...");
 ColoredDisksNode terminalNode = depthFirstColoredDisks.Search(); //null-t ad vissza, gyakorlatilag nincs megoldása.
 Console.WriteLine("Search has finished.");
@@ -59,8 +59,8 @@ foreach (var node in depthFirstColoredDisks.GetSolution(terminalNode))
 #endregion
 
 #region Breadth-First
-/*
-BreadthFirstColoredDisks breadthFirstColoredDisks = new BreadthFirstColoredDisks(true);
+
+BreadthFirstColoredDisks breadthFirstColoredDisks = new BreadthFirstColoredDisks(true, 4);
 Console.WriteLine("Starting search...");
 ColoredDisksNode terminalNode = breadthFirstColoredDisks.Search(); //null-t ad vissza, gyakorlatilag nincs megoldása.
 Console.WriteLine("Search has finished.");
@@ -72,7 +72,7 @@ foreach (var node in breadthFirstColoredDisks.GetSolution(terminalNode))
     PrintState(node.State);
     Console.WriteLine("\n\n");
 }
-*/
+
 #endregion
 
 static void PrintState(ColoredDisksState state)
