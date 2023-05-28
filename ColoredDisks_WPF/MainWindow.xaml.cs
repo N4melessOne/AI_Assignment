@@ -27,7 +27,6 @@ namespace ColoredDisks_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        
         private ColoredDisksNode terminalNode;
         private List<ColoredDisksNode> solution; //Should be a List to iterate through easily
         private Image _horseman;
@@ -47,19 +46,19 @@ namespace ColoredDisks_WPF
         {
             _currentStep = 0;
         }
-        
+
         private void InitializeResources()
         {
             lblTitle.Content = $"{this._size}x{this._size} Colored Disk problem";
             GenerateStateGrid();
             PaintStateGrid();
         }
-        
+
         private void PrintState(ColoredDisksState current)
         {
             var brushRed = new SolidColorBrush(Colors.Red);
             var brushBlue = new SolidColorBrush(Colors.Blue);
-            
+
             for (int i = 0; i < current.Disks.GetLength(0); i++)
             {
                 for (int j = 0; j < current.Disks.GetLength(1); j++)
@@ -138,12 +137,22 @@ namespace ColoredDisks_WPF
         {
             switch (selector.SelectedIndex)
             {
-                case 0: this.GetTrialAndErrorSolution(); break;
-                case 1: this.GetBacktrackSolution(); break;
-                case 2: this.GetDepthFirstSolution(); break;
-                case 3: this.GetBreadthFirstSolution(); break;
-                
-                default: MessageBox.Show("Not a valid searching algorithm!"); break;
+                case 0:
+                    this.GetTrialAndErrorSolution();
+                    break;
+                case 1:
+                    this.GetBacktrackSolution();
+                    break;
+                case 2:
+                    this.GetDepthFirstSolution();
+                    break;
+                case 3:
+                    this.GetBreadthFirstSolution();
+                    break;
+
+                default:
+                    MessageBox.Show("Not a valid searching algorithm!");
+                    break;
             }
         }
 
@@ -158,26 +167,101 @@ namespace ColoredDisks_WPF
 
         private void GetTrialAndErrorSolution()
         {
-            this._searchingAlgorithm = new TrialAndErrorColoredDisks(this._size);
-            this.ResetSolution();
+            try
+            {
+                this._searchingAlgorithm = new TrialAndErrorColoredDisks(this._size);
+                this.ResetSolution();
+            }
+            catch (StackOverflowException)
+            {
+                MessageBox.Show("There is no solution to the problem.");
+                this.ResetSolution();
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("There is no solution to the problem.");
+                this.ResetSolution();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Other error:\n" + e.Message);
+                this.ResetSolution();
+            }
         }
 
         private void GetBacktrackSolution()
         {
-            this._searchingAlgorithm = new BacktrackColoredDisks(this._size * 4, true, this._size);
-            this.ResetSolution();
+            try
+            {
+                this._searchingAlgorithm = new BacktrackColoredDisks(this._size * 4, true, this._size);
+                this.ResetSolution();
+            }
+            catch (StackOverflowException)
+            {
+                MessageBox.Show("There is no solution to the problem.");
+                this.ResetSolution();
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("There is no solution to the problem.");
+                this.ResetSolution();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Other error:\n" + e.Message);
+                this.ResetSolution();
+            }
         }
 
         private void GetDepthFirstSolution()
         {
-            this._searchingAlgorithm = new DepthFirstColoredDisks(true, this._size);
-            this.ResetSolution();
+            try
+            {
+                this._searchingAlgorithm = new DepthFirstColoredDisks(true, this._size);
+                this.ResetSolution();
+            }
+            catch (StackOverflowException)
+            {
+                MessageBox.Show("There is no solution to the problem.");
+                this.selector.SelectedIndex = 0;
+                this.ResetSolution();
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("There is no solution to the problem.");
+                this.selector.SelectedIndex = 0;
+                this.ResetSolution();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Other error:\n" + e.Message);
+                this.selector.SelectedIndex = 0;
+                this.ResetSolution();
+            }
         }
 
         private void GetBreadthFirstSolution()
         {
-            this._searchingAlgorithm = new BreadthFirstColoredDisks(true, this._size);
-            this.ResetSolution();
+            try
+            {
+                this._searchingAlgorithm = new BreadthFirstColoredDisks(true, this._size);
+                this.ResetSolution();
+            }
+            catch (StackOverflowException)
+            {
+                MessageBox.Show("There is no solution to the problem.");
+                this.ResetSolution();
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("There is no solution to the problem.");
+                this.ResetSolution();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Other error:\n" + e.Message);
+                this.ResetSolution();
+            }
         }
     }
 }

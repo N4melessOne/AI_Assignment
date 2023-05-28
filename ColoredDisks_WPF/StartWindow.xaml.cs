@@ -32,6 +32,14 @@ public partial class StartWindow : Window
             return;
         }
 
+        if (size >= 5)
+        {
+            MessageBox.Show("It is possible that the problem of the given size has no solution!\n Please specify a lower size", 
+                "WARNING", MessageBoxButton.OK);
+            ResetTbSize();
+            return;
+        }
+
         MainWindow mainWindow = new MainWindow(size);
         this.Close();
         mainWindow.ShowDialog();
